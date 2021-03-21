@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.11.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        .rating {
+            color:lightpink;
+        }
+    </style>
+
+</head>
+
+<body>
+<!--    問題點
+    目前 font-awesome 用的是 5.11.1 版，本來想讓評分的系統用花來表現，網頁中呈現的是花在評分後便星星
+    因為原本的例子用的是 4 的版， 有一個 fa-star-o 效用是讓 aria-hidden="true" 就是隱藏的效果
+    可是 5 版的 css 檔案中沒有類似的 class 對應到 flower ，要再考慮看看要用什麼方式呈現。
+     
+
+ -->
+ <!-- 
+     github 上翻到的評分系統
+     http://dreyescat.github.io/bootstrap-rating/
+     出處
+     https://github.com/dreyescat/bootstrap-rating
+     
+  -->
+
+
+    </div>
+    <div class="rating_box">
+        <div class="rating">
+            <span class="fad fa-flower fa-3x"></span>
+            <span class="fad fa-flower fa-3x"></span>
+            <span class="fad fa-flower fa-3x"></span>
+            <span class="fad fa-flower fa-3x"></span>
+            <span class="fad fa-flower fa-3x"></span>
+            <!-- <h4 id="rating-value"></h4> -->
+
+        </div>
+
+    </div>
+    <script>
+        const stars = document.querySelector(".rating").children;
+        let ratingValue
+        let index //目前選到的星星
+        // document.getElementById("rating-value").innerHTML = "請給分"
+        for (let i = 0; i < stars.length; i++) {
+            stars[i].addEventListener("mouseover", function () {
+                //  console.log(i)
+                // document.getElementById("rating-value").innerHTML = "正在打分數"
+                for (let j = 0; j < stars.length; j++) {
+                    stars[j].classList.remove("fa-star")//reset 所有星星
+                    stars[j].classList.add("fa-star-o")
+                    
+                }
+                for (let j = 0; j <= i; j++) {
+                    stars[j].classList.remove("fa-star-o") //先移除空心的星星
+                    stars[j].classList.add("fa-star") //添加新的星星 如果i=j表示選中的
+                }
+            })
+            stars[i].addEventListener("click", function () {
+                ratingValue = i + 1
+                index = i
+                // document.getElementById("rating-value").innerHTML = "你打的分數是 "+ratingValue
+            })
+            stars[i].addEventListener("mouseout", function () {
+                for (let j = 0; j < stars.length; j++) {
+                    stars[j].classList.remove("fa-star")//reset 所有星星
+                    stars[j].classList.add("fa-star-o")
+                }
+                for (let j = 0; j <= index; j++) {
+                    stars[j].classList.remove("fa-star-o")
+                    stars[j].classList.add("fa-star")
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
